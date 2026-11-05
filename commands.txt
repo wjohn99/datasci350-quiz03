@@ -94,3 +94,42 @@ The script failed because the token limit of 15 was not enough to complete the r
 git add ollama/ commands.txt
 git commit -m "Add Python calls"
 git push origin main
+
+9.
+Launced EC2 instance.
+
+10.
+chmod 400 ./key.pem
+ssh -i ./key.pem ubuntu@ec2-3-17-129-81.us-east-2.compute.amazonaws.com
+ubuntu@ip-172-31-27-109:~$ 
+
+11.
+sudo apt update && sudo apt upgrade -y
+sudo apt install python3-pandas && sudo apt install python3-matplotlib && sudo apt install python3-seaborn
+
+12.
+cd /Users/wjohn/Downloads/datasci350-quiz03
+scp -i key.pem aws/traffic_analysis.py aws/website_traffic.txt ubuntu@ec2-3-17-129-81.us-east-2.compute.amazonaws.com:~/
+traffic_analysis.py                                                                                 
+website_traffic.txt   
+
+13.
+python3 traffic_analysis.py > results.txt
+cat /var/lib/cloud/data/instance-id >> results.txt
+sha256sum results.txt > fingerprint.txt
+
+14.
+scp -i key.pem ubuntu@ec2-3-17-129-81.us-east-2.compute.amazonaws.com:~/results.txt aws/ 
+scp -i key.pem ubuntu@ec2-3-17-129-81.us-east-2.compute.amazonaws.com:~/fingerprint.txt aws/ 
+scp -i key.pem ubuntu@ec2-3-17-129-81.us-east-2.compute.amazonaws.com:~/traffic_analysis.png aws/
+
+15.
+When you stop an instance rather than terminate it, you still pay for EBS storage as the disk still bills.
+
+Acknowledgment: I referenced lectures 12, 15, 16 for the code boilerplates/explainations and Ollama documentation website. I used ChatGPT to make sure I was running the correct Ubtuntu EC2 instance, the num_ctx parameter in the Modelfile, and resolve the following error (forgot to add :~/ at the end of the terminal command).
+wjohn@Johns-MacBook-Pro datasci350-quiz03 % scp -i key.pem aws/traffic_analysis.py aws/website_traffic.txt ubuntu@ec2-3-17-129-81.us-east-2.compute.amazonaws.com
+ubuntu@ec2-3-17-129-81.us-east-2.compute.amazonaws.com: No such file or directory
+
+git add .
+git commit -m "Add AWS analysis results"
+git push origin main
