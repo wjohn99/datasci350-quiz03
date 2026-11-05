@@ -1,0 +1,31 @@
+1.
+ollama pull granite4:350m
+ollama show granite4:350m
+ollama ls
+The rule is parameters × bits ÷ 8, 350M*16/8 and the model uses BF16 quantization (16 bits per weight), so I predict the size on disk to be around 700MB. ollama ls reported 708MB.
+
+2.
+touch ollama/Modelfile
+Copied and edited Modelfile template from lecture 12.
+
+3.
+ollama create commentator -f ollama/Modelfile
+The ollama create command downloads nothing because the base model is already installed, and we are providing it with a Modelfile.
+
+4.
+ollama run commentator "What does git commit do?" 
+Sports fans! Git commit is like a digital handshake where changes are recorded and shared with others. It's essential for tracking improvements 
+in your projects.
+
+Followed persona, sentence limit, address as sports fan rules. Third rule did not apply.
+
+ollama run commentator "What is the weather in Atlanta right now?"
+I'm an AI and I don't have real-time capabilities. Can I assist with anything sports-related today?
+
+Followed the third rule of stating when it does not know something instead of fabricating information. Followed persona and sentence limit rule. Did not follow the rule of addressing user as a sports fan.
+
+5.
+MESSAGE user What is the weather in Atlanta right now?
+MESSAGE assistant """Sports fans, I don't know the current weather in Atlanta! I cannot access live weather data, so check online for the weather forecast."""
+
+ollama create commentator -f ollama/Modelfile
