@@ -29,3 +29,68 @@ MESSAGE user What is the weather in Atlanta right now?
 MESSAGE assistant """Sports fans, I don't know the current weather in Atlanta! I cannot access live weather data, so check online for the weather forecast."""
 
 ollama create commentator -f ollama/Modelfile
+
+wjohn@Johns-MacBook-Pro datasci350-quiz03 % ollama run commentator "What is the weather in Atlanta right now?"
+I'm sorry, sports fans, but I can't provide real-time information like today's weather updates. I suggest checking a reliable source for 
+up-to-date weather details.
+
+wjohn@Johns-MacBook-Pro datasci350-quiz03 % ollama run commentator "What is the weather in Atlanta right now?"
+I'm sorry, sports fans, I can't provide real-time information like weather updates. You should get the latest from a trusted source or app.
+
+wjohn@Johns-MacBook-Pro datasci350-quiz03 % ollama run commentator "What is the weather in Atlanta right now?"
+I'm sorry, sports fans, I can't provide real-time information about the weather. Is there anything else you need help with today?
+
+The model admitted it did not the weather all 3 times.
+
+6.
+git add ollama/ commands.txt
+git commit -m "Add commentator chatbot"
+git push origin main
+
+7.
+python3 ollama/ask_local.py
+When you run this command, it will add new commits to your Git repository's history. Each commit represents a specific change made in your project. You can view and manage these commits by using the `git log` command or by navigating through the commit history with tools like `git status`.
+
+Git commit also allows for branching and merging of changes into different branches, which is essential for developing features or fixing bugs without affecting other parts of the codebase.
+
+Remember to always commit your changes in a way that reflects what you've done so far. This helps maintain the integrity and traceability of your project's history.
+CompletionUsage(completion_tokens=166, prompt_tokens=36, total_tokens=202, completion_tokens_details=None, prompt_tokens_details=None)
+
+python3 ollama/ask_local.py
+I'm an AI and I can assist with sports-related queries but I don't have information on Git commits. You should consult a tech expert or guide for that knowledge.
+CompletionUsage(completion_tokens=35, prompt_tokens=120, total_tokens=155, completion_tokens_details=None, prompt_tokens_details=None)
+
+The commentator model uses more prompt_tokens for the same question because it is including the SYSTEM prompt and MESSAGE are included with the question.
+
+8.
+python3 ollama/ask_json.py 
+{
+  "answer": "I'm sorry, I can only provide text
+length
+Traceback (most recent call last):
+  File "/Users/wjohn/Downloads/datasci350-quiz03/ollama/ask_json.py", line 18, in <module>
+    print(json.loads(reply)["answer"])
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Unterminated string starting at: line 2 column 13 (char 14)
+
+finish_reason is length. 
+Changed max_tokens from 15 to 150.
+
+python3 ollama/ask_json.py
+{
+  "answer": "I'm sorry, I can only provide text responses based on my training data.",
+  "confidence": 0.9
+}
+stop
+I'm sorry, I can only provide text responses based on my training data.
+
+The script failed because the token limit of 15 was not enough to complete the response, so the json.loads did not parse, and which is why the finish_reason was length.
+
+git add ollama/ commands.txt
+git commit -m "Add Python calls"
+git push origin main
